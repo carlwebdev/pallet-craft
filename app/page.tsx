@@ -1,45 +1,25 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Leaf, Recycle, Hammer, Star, ArrowRight, Mail, Phone, MapPin } from "lucide-react"
 import Link from "next/link"
+import { useState } from "react"
 
 export default function HomePage() {
+  const [selectedCategory, setSelectedCategory] = useState("All")
+
   const products = [
+    // Storage Solutions
     {
       name: "Shoe Rack Organizer",
       description: "Multi-tier shoe storage solution perfect for entryways and closets",
       image: "/placeholder.svg?height=300&width=400",
       category: "Storage",
       difficulty: "Beginner",
-    },
-    {
-      name: "Rustic Bar Station",
-      description: "Complete bar setup with bottle storage and serving counter",
-      image: "/placeholder.svg?height=300&width=400",
-      category: "Furniture",
-      difficulty: "Intermediate",
-    },
-    {
-      name: "Guitar Display Rack",
-      description: "Elegant wall-mounted or standing guitar storage and display",
-      image: "/placeholder.svg?height=300&width=400",
-      category: "Display",
-      difficulty: "Beginner",
-    },
-    {
-      name: "Garden Planter Box",
-      description: "Raised garden beds perfect for vegetables, herbs, and flowers",
-      image: "/placeholder.svg?height=300&width=400",
-      category: "Garden",
-      difficulty: "Beginner",
-    },
-    {
-      name: "Coffee Table",
-      description: "Stylish living room centerpiece with built-in storage",
-      image: "/placeholder.svg?height=300&width=400",
-      category: "Furniture",
-      difficulty: "Intermediate",
+      estimatedTime: "2-3 hours",
+      materials: "2 pallets",
     },
     {
       name: "Wall Shelving Unit",
@@ -47,8 +27,221 @@ export default function HomePage() {
       image: "/placeholder.svg?height=300&width=400",
       category: "Storage",
       difficulty: "Beginner",
+      estimatedTime: "3-4 hours",
+      materials: "1 pallet",
+    },
+    {
+      name: "Storage Chest",
+      description: "Large storage box with hinged lid for blankets and toys",
+      image: "/placeholder.svg?height=300&width=400",
+      category: "Storage",
+      difficulty: "Intermediate",
+      estimatedTime: "4-5 hours",
+      materials: "2 pallets",
+    },
+    {
+      name: "Closet Organizer",
+      description: "Vertical storage system with multiple compartments",
+      image: "/placeholder.svg?height=300&width=400",
+      category: "Storage",
+      difficulty: "Advanced",
+      estimatedTime: "6-8 hours",
+      materials: "3 pallets",
+    },
+    {
+      name: "Pantry Shelves",
+      description: "Kitchen pantry organization with adjustable shelving",
+      image: "/placeholder.svg?height=300&width=400",
+      category: "Storage",
+      difficulty: "Intermediate",
+      estimatedTime: "4-6 hours",
+      materials: "2 pallets",
+    },
+
+    // Furniture
+    {
+      name: "Rustic Bar Station",
+      description: "Complete bar setup with bottle storage and serving counter",
+      image: "/placeholder.svg?height=300&width=400",
+      category: "Furniture",
+      difficulty: "Intermediate",
+      estimatedTime: "8-10 hours",
+      materials: "4 pallets",
+    },
+    {
+      name: "Coffee Table",
+      description: "Stylish living room centerpiece with built-in storage",
+      image: "/placeholder.svg?height=300&width=400",
+      category: "Furniture",
+      difficulty: "Intermediate",
+      estimatedTime: "5-6 hours",
+      materials: "2 pallets",
+    },
+    {
+      name: "Dining Table",
+      description: "Large family dining table with rustic charm",
+      image: "/placeholder.svg?height=300&width=400",
+      category: "Furniture",
+      difficulty: "Advanced",
+      estimatedTime: "10-12 hours",
+      materials: "5 pallets",
+    },
+    {
+      name: "Sofa Frame",
+      description: "Comfortable outdoor sofa base ready for cushions",
+      image: "/placeholder.svg?height=300&width=400",
+      category: "Furniture",
+      difficulty: "Advanced",
+      estimatedTime: "8-10 hours",
+      materials: "4 pallets",
+    },
+    {
+      name: "Bed Frame",
+      description: "Queen size platform bed with headboard",
+      image: "/placeholder.svg?height=300&width=400",
+      category: "Furniture",
+      difficulty: "Advanced",
+      estimatedTime: "12-15 hours",
+      materials: "6 pallets",
+    },
+    {
+      name: "TV Stand",
+      description: "Entertainment center with cable management",
+      image: "/placeholder.svg?height=300&width=400",
+      category: "Furniture",
+      difficulty: "Intermediate",
+      estimatedTime: "4-6 hours",
+      materials: "2 pallets",
+    },
+
+    // Garden & Outdoor
+    {
+      name: "Garden Planter Box",
+      description: "Raised garden beds perfect for vegetables, herbs, and flowers",
+      image: "/placeholder.svg?height=300&width=400",
+      category: "Garden",
+      difficulty: "Beginner",
+      estimatedTime: "2-3 hours",
+      materials: "1 pallet",
+    },
+    {
+      name: "Vertical Garden Wall",
+      description: "Space-saving vertical planting system",
+      image: "/placeholder.svg?height=300&width=400",
+      category: "Garden",
+      difficulty: "Intermediate",
+      estimatedTime: "4-5 hours",
+      materials: "2 pallets",
+    },
+    {
+      name: "Compost Bin",
+      description: "Three-compartment composting system",
+      image: "/placeholder.svg?height=300&width=400",
+      category: "Garden",
+      difficulty: "Intermediate",
+      estimatedTime: "3-4 hours",
+      materials: "3 pallets",
+    },
+    {
+      name: "Garden Bench",
+      description: "Comfortable seating for your outdoor space",
+      image: "/placeholder.svg?height=300&width=400",
+      category: "Garden",
+      difficulty: "Beginner",
+      estimatedTime: "3-4 hours",
+      materials: "2 pallets",
+    },
+    {
+      name: "Potting Station",
+      description: "Organized workspace for gardening activities",
+      image: "/placeholder.svg?height=300&width=400",
+      category: "Garden",
+      difficulty: "Intermediate",
+      estimatedTime: "5-6 hours",
+      materials: "3 pallets",
+    },
+
+    // Display & Decor
+    {
+      name: "Guitar Display Rack",
+      description: "Elegant wall-mounted or standing guitar storage and display",
+      image: "/placeholder.svg?height=300&width=400",
+      category: "Display",
+      difficulty: "Beginner",
+      estimatedTime: "2-3 hours",
+      materials: "1 pallet",
+    },
+    {
+      name: "Wine Rack",
+      description: "Stylish wine bottle storage and display",
+      image: "/placeholder.svg?height=300&width=400",
+      category: "Display",
+      difficulty: "Intermediate",
+      estimatedTime: "4-5 hours",
+      materials: "2 pallets",
+    },
+    {
+      name: "Picture Frame Wall",
+      description: "Rustic photo display with multiple frames",
+      image: "/placeholder.svg?height=300&width=400",
+      category: "Display",
+      difficulty: "Beginner",
+      estimatedTime: "2-3 hours",
+      materials: "1 pallet",
+    },
+    {
+      name: "Book Display Stand",
+      description: "Angled display for books and magazines",
+      image: "/placeholder.svg?height=300&width=400",
+      category: "Display",
+      difficulty: "Beginner",
+      estimatedTime: "2-3 hours",
+      materials: "1 pallet",
+    },
+
+    // Kids & Play
+    {
+      name: "Toy Storage Bins",
+      description: "Colorful storage solutions for children's toys",
+      image: "/placeholder.svg?height=300&width=400",
+      category: "Kids",
+      difficulty: "Beginner",
+      estimatedTime: "2-3 hours",
+      materials: "1 pallet",
+    },
+    {
+      name: "Play Kitchen",
+      description: "Mini kitchen set for imaginative play",
+      image: "/placeholder.svg?height=300&width=400",
+      category: "Kids",
+      difficulty: "Advanced",
+      estimatedTime: "10-12 hours",
+      materials: "4 pallets",
+    },
+    {
+      name: "Sandbox",
+      description: "Covered sandbox for outdoor fun",
+      image: "/placeholder.svg?height=300&width=400",
+      category: "Kids",
+      difficulty: "Intermediate",
+      estimatedTime: "4-6 hours",
+      materials: "3 pallets",
+    },
+    {
+      name: "Reading Nook",
+      description: "Cozy corner seating with book storage",
+      image: "/placeholder.svg?height=300&width=400",
+      category: "Kids",
+      difficulty: "Intermediate",
+      estimatedTime: "6-8 hours",
+      materials: "3 pallets",
     },
   ]
+
+  const categories = ["All", "Storage", "Furniture", "Garden", "Display", "Kids"]
+
+  const filteredProducts =
+    selectedCategory === "All" ? products : products.filter((product) => product.category === selectedCategory)
 
   const features = [
     {
@@ -72,6 +265,28 @@ export default function HomePage() {
       description: "Each piece has its own story and character from the original pallet wood.",
     },
   ]
+
+  const getDifficultyColor = (difficulty: string) => {
+    switch (difficulty) {
+      case "Beginner":
+        return "bg-green-100 text-green-800"
+      case "Intermediate":
+        return "bg-yellow-100 text-yellow-800"
+      case "Advanced":
+        return "bg-red-100 text-red-800"
+      default:
+        return "bg-gray-100 text-gray-800"
+    }
+  }
+
+  const handleCategoryClick = (category: string) => {
+    setSelectedCategory(category)
+    // Scroll to products section
+    const productsSection = document.getElementById("products")
+    if (productsSection) {
+      productsSection.scrollIntoView({ behavior: "smooth" })
+    }
+  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -120,6 +335,36 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Category Chips Section */}
+      <section className="py-8 bg-white border-b">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-6">
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">Browse by Category</h2>
+            <p className="text-gray-600">Find the perfect project for your needs</p>
+          </div>
+          <div className="flex flex-wrap justify-center gap-3">
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => handleCategoryClick(category)}
+                className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-200 ${
+                  selectedCategory === category
+                    ? "bg-green-600 text-white shadow-lg transform scale-105"
+                    : "bg-gray-100 text-gray-700 hover:bg-gray-200 hover:shadow-md"
+                }`}
+              >
+                {category}
+                {category !== "All" && (
+                  <span className="ml-2 text-xs opacity-75">
+                    ({products.filter((p) => p.category === category).length})
+                  </span>
+                )}
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Features Section */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
@@ -151,8 +396,24 @@ export default function HomePage() {
               From storage solutions to garden furniture, discover our complete range of pallet DIY projects.
             </p>
           </div>
+
+          {/* Category Filter */}
+          <div className="flex flex-wrap justify-center gap-2 mb-8">
+            {categories.map((category) => (
+              <Button
+                key={category}
+                variant={selectedCategory === category ? "default" : "outline"}
+                onClick={() => handleCategoryClick(category)}
+                className={selectedCategory === category ? "bg-green-600 hover:bg-green-700" : ""}
+              >
+                {category}
+              </Button>
+            ))}
+          </div>
+
+          {/* Products Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {products.map((product, index) => (
+            {filteredProducts.map((product, index) => (
               <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow">
                 <div className="aspect-[4/3] overflow-hidden">
                   <img
@@ -164,12 +425,16 @@ export default function HomePage() {
                 <CardHeader>
                   <div className="flex justify-between items-start mb-2">
                     <Badge variant="secondary">{product.category}</Badge>
-                    <Badge variant="outline" className="text-xs">
+                    <Badge variant="outline" className={`text-xs ${getDifficultyColor(product.difficulty)}`}>
                       {product.difficulty}
                     </Badge>
                   </div>
                   <CardTitle className="text-xl">{product.name}</CardTitle>
                   <CardDescription>{product.description}</CardDescription>
+                  <div className="flex justify-between text-sm text-gray-500 mt-2">
+                    <span>⏱️ {product.estimatedTime}</span>
+                    <span>📦 {product.materials}</span>
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <Button className="w-full">
@@ -178,6 +443,21 @@ export default function HomePage() {
                 </CardContent>
               </Card>
             ))}
+          </div>
+
+          {/* Category Stats */}
+          <div className="mt-12 text-center">
+            <div className="grid grid-cols-2 md:grid-cols-6 gap-4 max-w-4xl mx-auto">
+              {categories.slice(1).map((category) => {
+                const count = products.filter((p) => p.category === category).length
+                return (
+                  <div key={category} className="text-center">
+                    <div className="text-2xl font-bold text-green-600">{count}</div>
+                    <div className="text-sm text-gray-600">{category} Projects</div>
+                  </div>
+                )
+              })}
+            </div>
           </div>
         </div>
       </section>
@@ -200,15 +480,15 @@ export default function HomePage() {
               </p>
               <div className="flex items-center space-x-8">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-green-600">10,000+</div>
+                  <div className="text-2xl font-bold text-green-600">15,000+</div>
                   <div className="text-sm text-gray-600">Projects Completed</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-green-600">50+</div>
+                  <div className="text-2xl font-bold text-green-600">{products.length}+</div>
                   <div className="text-sm text-gray-600">Design Plans</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-green-600">95%</div>
+                  <div className="text-2xl font-bold text-green-600">98%</div>
                   <div className="text-sm text-gray-600">Customer Satisfaction</div>
                 </div>
               </div>
@@ -292,27 +572,47 @@ export default function HomePage() {
               </p>
             </div>
             <div>
-              <h4 className="text-lg font-semibold mb-4">Products</h4>
+              <h4 className="text-lg font-semibold mb-4">Categories</h4>
               <ul className="space-y-2 text-gray-400">
                 <li>
-                  <Link href="#" className="hover:text-white transition-colors">
-                    Storage Solutions
-                  </Link>
+                  <button
+                    onClick={() => handleCategoryClick("Storage")}
+                    className="hover:text-white transition-colors text-left"
+                  >
+                    Storage Solutions ({products.filter((p) => p.category === "Storage").length})
+                  </button>
                 </li>
                 <li>
-                  <Link href="#" className="hover:text-white transition-colors">
-                    Furniture
-                  </Link>
+                  <button
+                    onClick={() => handleCategoryClick("Furniture")}
+                    className="hover:text-white transition-colors text-left"
+                  >
+                    Furniture ({products.filter((p) => p.category === "Furniture").length})
+                  </button>
                 </li>
                 <li>
-                  <Link href="#" className="hover:text-white transition-colors">
-                    Garden Items
-                  </Link>
+                  <button
+                    onClick={() => handleCategoryClick("Garden")}
+                    className="hover:text-white transition-colors text-left"
+                  >
+                    Garden & Outdoor ({products.filter((p) => p.category === "Garden").length})
+                  </button>
                 </li>
                 <li>
-                  <Link href="#" className="hover:text-white transition-colors">
-                    Display Racks
-                  </Link>
+                  <button
+                    onClick={() => handleCategoryClick("Display")}
+                    className="hover:text-white transition-colors text-left"
+                  >
+                    Display & Decor ({products.filter((p) => p.category === "Display").length})
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => handleCategoryClick("Kids")}
+                    className="hover:text-white transition-colors text-left"
+                  >
+                    Kids & Play ({products.filter((p) => p.category === "Kids").length})
+                  </button>
                 </li>
               </ul>
             </div>
