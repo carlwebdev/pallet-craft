@@ -424,7 +424,12 @@ export default function HomePage() {
                 </div>
                 <CardHeader>
                   <div className="flex justify-between items-start mb-2">
-                    <Badge variant="secondary">{product.category}</Badge>
+                    <button
+                      onClick={() => handleCategoryClick(product.category)}
+                      className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-all duration-200 border-transparent bg-secondary text-secondary-foreground hover:bg-green-100 hover:text-green-800 hover:scale-105 cursor-pointer"
+                    >
+                      {product.category}
+                    </button>
                     <Badge variant="outline" className={`text-xs ${getDifficultyColor(product.difficulty)}`}>
                       {product.difficulty}
                     </Badge>
