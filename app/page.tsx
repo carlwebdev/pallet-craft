@@ -1,14 +1,19 @@
 "use client"
 
+import type React from "react"
+
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Leaf, Recycle, Hammer, Star, ArrowRight, Mail, Phone, MapPin } from "lucide-react"
+import { Input } from "@/components/ui/input"
+import { Leaf, Recycle, Hammer, Star, ArrowRight, Mail, Phone, MapPin, Send } from "lucide-react"
 import Link from "next/link"
 import { useState } from "react"
 
 export default function HomePage() {
   const [selectedCategory, setSelectedCategory] = useState("All")
+  const [email, setEmail] = useState("")
+  const [isSubscribed, setIsSubscribed] = useState(false)
 
   const products = [
     // Storage Solutions
@@ -288,6 +293,17 @@ export default function HomePage() {
     }
   }
 
+  const handleNewsletterSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (email) {
+      // Here you would typically send the email to your newsletter service
+      setIsSubscribed(true)
+      setEmail("")
+      // Reset success message after 3 seconds
+      setTimeout(() => setIsSubscribed(false), 3000)
+    }
+  }
+
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
@@ -558,6 +574,78 @@ export default function HomePage() {
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Visit Us</h3>
               <p className="text-gray-600">Portland, Oregon</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter Section */}
+      <section className="py-16 bg-gradient-to-r from-green-600 to-green-700 text-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="flex justify-center mb-6">
+              <div className="bg-white/10 p-4 rounded-full">
+                <Mail className="h-8 w-8 text-white" />
+              </div>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Stay Updated with New Projects</h2>
+            <p className="text-xl text-green-100 mb-8 max-w-2xl mx-auto">
+              Get the latest DIY pallet furniture plans, tips, and exclusive tutorials delivered straight to your inbox.
+              Join our community of sustainable builders!
+            </p>
+
+            {isSubscribed ? (
+              <div className="bg-white/10 border border-white/20 rounded-lg p-6 max-w-md mx-auto">
+                <div className="flex items-center justify-center mb-2">
+                  <div className="bg-green-500 rounded-full p-2">
+                    <svg className="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                </div>
+                <h3 className="text-lg font-semibold mb-1">Welcome to PalletCraft!</h3>
+                <p className="text-green-100 text-sm">
+                  Check your email for a welcome message and your first free project plan.
+                </p>
+              </div>
+            ) : (
+              <form onSubmit={handleNewsletterSubmit} className="max-w-md mx-auto">
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <Input
+                    type="email"
+                    placeholder="Enter your email address"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="flex-1 bg-white/10 border-white/20 text-white placeholder:text-green-100 focus:bg-white/20 focus:border-white"
+                  />
+                  <Button
+                    type="submit"
+                    variant="secondary"
+                    className="bg-white text-green-600 hover:bg-green-50 font-semibold"
+                  >
+                    Subscribe <Send className="ml-2 h-4 w-4" />
+                  </Button>
+                </div>
+                <p className="text-sm text-green-100 mt-3">
+                  Free to join. Unsubscribe anytime. We respect your privacy.
+                </p>
+              </form>
+            )}
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 text-center">
+              <div>
+                <div className="text-2xl font-bold mb-1">Weekly</div>
+                <div className="text-green-100 text-sm">New project plans</div>
+              </div>
+              <div>
+                <div className="text-2xl font-bold mb-1">Exclusive</div>
+                <div className="text-green-100 text-sm">Subscriber-only content</div>
+              </div>
+              <div>
+                <div className="text-2xl font-bold mb-1">Free</div>
+                <div className="text-green-100 text-sm">No cost, cancel anytime</div>
+              </div>
             </div>
           </div>
         </div>
